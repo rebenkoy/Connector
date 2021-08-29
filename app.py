@@ -2,8 +2,10 @@
 from website.app import create_app, setup_app
 from website.oauth2 import config_oauth
 from website.models import db
-from website.routes import oauth2_blueprint, entrance_blueprint, api_blueprint
-
+from website.login_manager import login_manager
+from website.routes import api_blueprint
+from website.blueprints.entrance import entrance_blueprint
+from website.blueprints.oauth2 import oauth2_blueprint
 
 app = create_app({
     'SECRET_KEY': 'secret',
@@ -20,5 +22,6 @@ setup_app(
         '/api': api_blueprint,
     },
     db,
+    login_manager,
     config_oauth,
 )

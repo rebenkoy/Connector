@@ -29,6 +29,7 @@ def setup_app(
         app: flask.Flask,
         blueprints: typing.Dict[str, flask.Blueprint],
         db,
+        login_manager,
         config_oauth,
 ):
     # Create tables if they do not exist already
@@ -37,6 +38,7 @@ def setup_app(
         db.create_all()
 
     db.init_app(app)
+    login_manager.init_app(app)
     config_oauth(app)
     for prefix, bp in blueprints.items():
         app.register_blueprint(bp, url_prefix=prefix)
