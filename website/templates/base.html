@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            margin: 0px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            background: linear-gradient(
+                    0deg,
+                    rgb(255, 255, 255) 0%,
+                    rgb(255, 252, 240) 3%,
+                    rgb(255, 252, 240) 100%
+            );
+        }
+        .header * {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        .login {
+            flex-grow: 2;
+            text-align: center;
+            font-size: xxx-large;
+        }
+        .login::first-letter {
+            color: red;
+        }
+        .title {
+            font-size: xxx-large;
+            font-weight: bold;
+        }
+        .link_stack {
+            display: flex;
+            flex-direction: column;
+        }
+        .holder {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            overflow: auto;
+            height: 100%;
+        }
+    </style>
+    {% block preambule %}
+    {% endblock %}
+</head>
+<body>
+<div class="holder">
+    <div class="header">
+        <div class="title">
+            Auth
+        </div>
+        {% if user.is_authenticated %}
+            <a href="{{ url_for('internal.home') }}">
+                <div class="login">
+                    {{ user.login }}
+                </div>
+            </a>
+        {% else %}
+            <div></div>
+        {% endif %}
+        <div class="link_stack">
+            {% if user.is_authenticated %}
+                <a href="{{ url_for('entrance.change_password') }}">Change password</a>
+                <a href="{{ url_for('entrance.logout') }}">Log out</a>
+            {% else %}
+                <a href="{{ url_for('entrance.login') }}">Log out</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+</body>
+</html>

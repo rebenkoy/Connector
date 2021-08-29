@@ -1,7 +1,7 @@
 import time
 
 from flask import Blueprint, request, url_for, render_template, redirect
-from flask_login import current_user
+from flask_login import current_user, login_required
 from authlib.oauth2 import OAuth2Error
 from werkzeug.security import gen_salt
 
@@ -17,10 +17,8 @@ def split_by_crlf(s):
 
 
 @oauth2_blueprint.route('/create_client', methods=('GET', 'POST'))
+@login_required
 def create_client():
-    user = current_user()
-    if not user:
-        return redirect('/')
     if request.method == 'GET':
         return render_template('create_client.html')
 
@@ -29,7 +27,7 @@ def create_client():
     client = OAuth2Client(
         client_id=client_id,
         client_id_issued_at=client_id_issued_at,
-        user_login=user.login,
+        user_login=current_user.login,
     )
 
     form = request.form
@@ -55,6 +53,7 @@ def create_client():
 
 
 @oauth2_blueprint.route('/authorize', methods=['GET', 'POST'])
+@login_required
 def authorize():
     user = current_user()
     # if user log status is not true (Auth server), then to log it in

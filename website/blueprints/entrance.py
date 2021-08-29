@@ -8,11 +8,11 @@ from website.login_manager import login_manager
 entrance_blueprint = Blueprint('entrance', __name__)
 
 
-login_manager.login_view = 'entrance.home'
+login_manager.login_view = 'entrance.login'
 
 
 @entrance_blueprint.route('/', methods=('GET', 'POST'))
-def home():
+def login():
     if request.method == 'POST':
         login = request.form.get('login')
         password = request.form.get('password')
@@ -37,7 +37,7 @@ def home():
     if current_user.is_authenticated:
         return redirect(url_for('internal.home'))
 
-    return render_template('login.html')
+    return render_template('login.html', user=current_user)
 
 
 @entrance_blueprint.route('/logout')
@@ -51,7 +51,7 @@ def logout():
 @login_required
 def change_password():
     if request.method == 'GET':
-        return render_template('alterPass.html')
+        return render_template('alterPass.html', user=current_user)
 
     new = request.form.get('password')
     confirmation = request.form.get('confirmation')

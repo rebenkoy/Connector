@@ -1,12 +1,14 @@
-<html>
-<head>
+{% extends "base.html" %}
+
+{% block preambule %}
     <style>
-        body {
+        #horizontal_centering {
             background-color: #a3f5a7;
             border-width: 0;
             margin: 0;
             display: flex;
             justify-content: space-around;
+            height: 100%;
         }
         #vertical_centering {
             display: flex;
@@ -25,14 +27,16 @@
             flex-direction: column;
         }
     </style>
-</head>
-<body>
-<div id="vertical_centering">
-    <form action="" method="post" id="login_form">
-        <input type="password" autofocus placeholder="new password" name="password">
-        <input type="password" placeholder="new password confirmation" name="confirmation">
-        <input type="submit">
-    </form>
-</div>
-</body>
-</html>
+{% endblock %}
+
+{% block content %}
+    <div id="horizontal_centering">
+        <div id="vertical_centering">
+            <form action="" method="post" id="login_form">
+                <input type="password" autofocus placeholder="new password" name="password">
+                <input type="password" placeholder="new password confirmation" name="confirmation">
+                <input type="submit">
+            </form>
+        </div>
+    </div>
+{% endblock %}
