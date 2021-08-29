@@ -6,6 +6,7 @@ from website.login_manager import login_manager
 from website.routes import api_blueprint
 from website.blueprints.entrance import entrance_blueprint
 from website.blueprints.oauth2 import oauth2_blueprint
+from website.blueprints.internal import internal_blueprint
 
 app = create_app({
     'SECRET_KEY': 'secret',
@@ -20,6 +21,7 @@ setup_app(
         '/': entrance_blueprint,
         '/oauth': oauth2_blueprint,
         '/api': api_blueprint,
+        '/internal': internal_blueprint,
     },
     db,
     login_manager,
