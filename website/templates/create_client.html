@@ -1,42 +1,91 @@
-<style>
-  label, label > span { display: block; }
-  label { margin: 15px 0; }
-</style>
+{% extends "base.html" %}
 
-<a href="/">Home</a>
+{%  block preambule %}
+    <style>
+        .section {
+            background: linear-gradient(
+                    0deg,
+                    rgb(255, 255, 255) 0%,
+                    rgb(240, 255, 255) 3%,
+                    rgb(240, 255, 255) 97%,
+                    rgb(255, 255, 255) 100%
+            );
+            position: sticky;
+            top: 0;
+        }
+        .horizontal_centering {
+            border-width: 0;
+            margin: 0;
+            display: flex;
+            justify-content: space-around;
+            height: 100%;
+        }
+        .vertical_centering {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .form {
+            padding-top: 5%;
+            padding-bottom: 10%;
+            padding-left: 10px;
+            padding-right: 10px;
+            border-width: 2px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            flex-direction: column;
+            column-gap: 3em;
+            row-gap: 1.5em;
+        }
+        span {
+            text-align: right;
+        }
 
-<form action="" method="post">
-  <label>
-    <span>Client Name</span>
-    <input type="text" name="client_name">
-  </label>
-  <label>
-    <span>Client URI</span>
-    <input type="url" name="client_uri">
-  </label>
-  <label>
-    <span>Allowed Scope</span>
-    <input type="text" name="scope">
-  </label>
-  <label>
-    <span>Redirect URIs</span>
-    <textarea name="redirect_uri" cols="30" rows="10"></textarea>
-  </label>
-  <label>
-    <span>Allowed Grant Types</span>
-    <textarea name="grant_type" cols="30" rows="10"></textarea>
-  </label>
-  <label>
-    <span>Allowed Response Types</span>
-    <textarea name="response_type" cols="30" rows="10"></textarea>
-  </label>
-  <label>
-    <span>Token Endpoint Auth Method</span>
-    <select name="token_endpoint_auth_method">
-      <option value="client_secret_basic">client_secret_basic</option>
-      <option value="client_secret_post">client_secret_post</option>
-      <option value="none">none</option>
-    </select>
-  </label>
-  <button>Submit</button>
-</form>
+        .submit {
+            grid-column: 1 / 3;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="section header"><p>Registering client application:</p></div>
+    <div class="horizontal_centering">
+        <div class="vertical_centering">
+            <form action="" method="post" class="form">
+
+                <span>Client Name</span>
+                <input type="text" name="client_name">
+
+
+                <span>Client URI</span>
+                <input type="url" name="client_uri">
+
+
+                <span>Allowed Scope</span>
+                <input type="text" name="scope">
+
+
+                <span>Redirect URIs</span>
+                <textarea name="redirect_uri" cols="30" rows="10"></textarea>
+
+
+                <span>Allowed Grant Types</span>
+                <textarea name="grant_type" cols="30" rows="10"></textarea>
+
+
+                <span>Allowed Response Types</span>
+                <textarea name="response_type" cols="30" rows="10"></textarea>
+
+
+                <span>Token Endpoint Auth Method</span>
+                <select name="token_endpoint_auth_method">
+                    <option value="client_secret_basic">client_secret_basic</option>
+                    <option value="client_secret_post">client_secret_post</option>
+                    <option value="none">none</option>
+                </select>
+
+                <button class="submit">Create client</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

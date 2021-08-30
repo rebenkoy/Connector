@@ -20,7 +20,7 @@ def split_by_crlf(s):
 @login_required
 def create_client():
     if request.method == 'GET':
-        return render_template('create_client.html')
+        return render_template('create_client.html', user=current_user)
 
     client_id = gen_salt(24)
     client_id_issued_at = int(time.time())
@@ -55,7 +55,7 @@ def create_client():
 @oauth2_blueprint.route('/authorize', methods=['GET', 'POST'])
 @login_required
 def authorize():
-    user = current_user()
+    user = current_user
     # if user log status is not true (Auth server), then to log it in
     if not user:
         return redirect(url_for('website.routes.home', next=request.url))
